@@ -562,7 +562,7 @@ const GetInTouch = memo(function GetInTouch({ delay }) {
 export default function App() {
   return (
     // Responsive root container
-    <div className="min-h-screen xl:h-screen xl:overflow-hidden bg-bg noise font-body flex flex-col relative w-full">
+    <div className="min-h-screen xl:h-screen xl:overflow-hidden bg-bg noise font-body flex flex-col relative w-full overflow-x-hidden">
 
       {/* Ambient background glows */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
@@ -574,13 +574,13 @@ export default function App() {
         <div className="flex flex-col lg:grid gap-3 md:gap-4 xl:gap-4 flex-1 xl:h-full lg:grid-cols-2 xl:grid-cols-[300px_minmax(0,1fr)_300px_250px]">
 
           {/* ── COL 1: Stack + Projects ── */}
-          <div className="flex flex-col gap-3 md:gap-4 xl:gap-4 xl:min-h-0">
+          <div className="order-2 lg:order-1 flex flex-col gap-3 md:gap-4 xl:gap-4 xl:min-h-0">
             <TechArsenal delay={0} />
             <WorksGallery delay={120} />
           </div>
 
           {/* ── COL 2: Stats + Hero + Experience ── */}
-          <div className="flex flex-col gap-3 md:gap-4 xl:gap-4 xl:min-h-0">
+          <div className="order-1 lg:order-2 flex flex-col gap-3 md:gap-4 xl:gap-4 xl:min-h-0">
             {/* Stats row */}
             <div className="grid grid-cols-3 gap-3 md:gap-4">
               <StatCard value={11} label="Projects" delay={80} icon={Flag} />
@@ -593,13 +593,13 @@ export default function App() {
           </div>
 
           {/* ── COL 3: Testimonials + Online Presence ── */}
-          <div className="flex flex-col gap-3 md:gap-4 xl:gap-4 xl:min-h-0">
+          <div className="order-3 flex flex-col gap-3 md:gap-4 xl:gap-4 xl:min-h-0">
             <Testimonials delay={160} />
             <OnlinePresence delay={280} />
           </div>
 
           {/* ── COL 4: Values + Get in Touch ── */}
-          <div className="flex flex-col gap-3 md:gap-4 xl:gap-4 xl:min-h-0">
+          <div className="order-4 flex flex-col gap-3 md:gap-4 xl:gap-4 xl:min-h-0">
             <ValuesCard delay={200} />
             <GetInTouch delay={360} />
           </div>

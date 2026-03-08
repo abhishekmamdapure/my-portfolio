@@ -9,7 +9,12 @@
   html, body, #root {
     /* FIX 1 – lock to viewport so nothing overflows */
     height: 100%;
-    overflow: hidden;
+  }
+
+  @media (min-width: 1280px) {
+    html, body, #root {
+      overflow: hidden;
+    }
   }
 
   body {
