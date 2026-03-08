@@ -199,72 +199,86 @@ const HeroCard = memo(function HeroCard({ delay }) {
   const [imgFailed, setImgFailed] = useState(false);
 
   return (
-    <div ref={ref} className="card p-5 xl:p-4 relative overflow-hidden h-auto xl:flex-1 xl:min-h-0 flex flex-col">
-      <div className="absolute -top-16 -left-16 w-56 h-56 bg-accent opacity-[0.05] rounded-full blur-3xl pointer-events-none" />
+    <div ref={ref} className="card p-5 xl:p-6 relative overflow-hidden h-auto xl:flex-1 xl:min-h-0 flex flex-col group">
+      {/* Background glow effect */}
+      <div className="absolute -top-16 -left-16 w-56 h-56 bg-accent opacity-[0.05] rounded-full blur-3xl pointer-events-none group-hover:opacity-[0.08] transition-opacity duration-500" />
+      <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-purple-600 opacity-[0.03] rounded-full blur-3xl pointer-events-none group-hover:opacity-[0.05] transition-opacity duration-500" />
 
       {/* Status + Resume row */}
-      <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center gap-1.5 px-2.5 py-1 bg-[#161616] border border-border rounded-full">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse-dot" />
-          <span className="text-xs text-gray-300">Available To Work</span>
+      <div className="flex items-center justify-between mb-5 relative z-10">
+        <div className="flex items-center gap-2 px-3 py-1.5 bg-[#161616]/80 backdrop-blur-sm border border-border/80 rounded-full shadow-sm hover:border-accent/30 transition-colors">
+          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse-dot shadow-[0_0_8px_rgba(52,211,113,0.6)]" />
+          <span className="text-xs text-gray-300 font-medium tracking-wide">Available To Work</span>
         </div>
         <a
           href="/resume.pdf"
           download
-          className="flex items-center gap-1.5 px-3 py-1 bg-[#161616] border border-border rounded-full text-xs text-gray-300 hover:border-accent hover:text-white transition-all duration-200"
+          className="flex items-center gap-2 px-4 py-1.5 bg-[#161616]/80 backdrop-blur-sm border border-border/80 rounded-full text-xs text-gray-300 hover:bg-accent/10 hover:border-accent hover:text-white transition-all duration-300 shadow-sm group/btn"
         >
-          Resume <Download size={11} />
+          <span className="font-medium tracking-wide">Resume</span> 
+          <Download size={13} className="text-accent group-hover/btn:-translate-y-0.5 transition-transform" />
         </a>
       </div>
 
       {/* Profile row */}
-      <div className="flex items-center gap-5 mb-3">
+      <div className="flex items-center gap-5 xl:gap-6 mb-5 relative z-10">
         {/* FIX 2 – photo from public/profile.jpg */}
         <div className="relative flex-shrink-0">
-          <div className="w-16 h-16 rounded-xl overflow-hidden border border-accent/30 bg-gradient-to-br from-accent/40 to-purple-900/60 flex items-center justify-center">
+          <div className="w-20 h-20 xl:w-24 xl:h-24 rounded-2xl overflow-hidden border border-accent/30 bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] flex items-center justify-center shadow-lg transform transition-transform duration-500 group-hover:scale-[1.02]">
             {imgFailed ? (
-              <span className="font-display font-bold text-white text-xl">AM</span>
+              <span className="font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-accent to-purple-500 text-3xl">AM</span>
             ) : (
               <img
                 src="/profile.png"
                 alt="Abhishek Mamdapure"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
                 onError={() => setImgFailed(true)}
               />
             )}
+            {/* Inner subtle glow */}
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/20 pointer-events-none" />
           </div>
-          <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-400 rounded-full border-2 border-bg" />
+          <span className="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 rounded-full border-[3px] border-bg shadow-[0_0_10px_rgba(16,185,129,0.4)]" />
         </div>
 
-        <div>
-          <h1 className="font-display text-xl font-bold text-white leading-tight tracking-wide">
+        <div className="flex flex-col justify-center">
+          <h1 className="font-display text-2xl xl:text-[28px] font-bold text-white leading-tight tracking-wide mb-1 opacity-90 group-hover:opacity-100 transition-opacity">
             Abhishek Mamdapure
           </h1>
-          <p className="text-gray-400 text-sm mt-0.5 font-body flex gap-1.5 items-center">
+          <p className="text-gray-400 text-sm xl:text-[15px] font-body flex gap-1.5 items-center bg-black/20 w-fit px-2 py-0.5 rounded-md border border-white/5">
             <span>I'm a</span>
-            <span className="text-accent font-semibold">
-              <Typewriter words={["Data Scientist", "Developer", "Problem Solver", "GenAI-Engineer"]} />
+            <span className="text-accent font-semibold tracking-wide">
+              <Typewriter words={["Data Scientist", "Developer", "Problem Solver", "AI Engineer"]} />
             </span>
           </p>
         </div>
       </div>
+      
+      {/* Short Bio */}
+      <div className="relative z-10 mb-5">
+        <p className="text-gray-400 text-sm xl:text-[14.5px] leading-relaxed font-body">
+          Passionate about crafting intelligent systems and solving complex problems with Artificial Intelligence. Experienced in building scalable ML architectures, Generative AI models, and modern data-driven solutions.
+        </p>
+      </div>
 
-      {/* Tags – FIX 1: uses inner-scroll so they don't push height */}
-      <div className="inner-scroll">
-        <div className="flex flex-wrap gap-1.5">
+      {/* Divider */}
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-border to-transparent mb-5 opacity-50" />
+
+      {/* Tags */}
+      <div className="inner-scroll relative z-10 flex-1 content-start hidden-scrollbar -mx-1 px-1">
+        <div className="flex flex-wrap gap-2">
           {[
             { icon: MapPin, text: "Pune, India" },
             { icon: Globe, text: "English, Hindi & Marathi" },
-            { icon: Cpu, text: "Mathematical Modeling & Simulation" },
+            { icon: Cpu, text: "Mathematical Modeling" },
             { icon: BookOpen, text: "Pune University" },
-            { icon: Heart, text: "Married" },
+            { icon: LifeBuoy, text: "Ex-Amazon" },
             { icon: Car, text: "Travel Enthusiast" },
-            { icon: Utensils, text: "Foodie" },
-            { icon: Dog, text: "Doggo Dad" },
+            { icon: Lightbulb, text: "AI & ML" },
           ].map(({ icon: Icon, text }) => (
-            <span key={text} className="tag-pill">
-              <Icon size={10} className="text-accent flex-shrink-0" />
-              <span>{text}</span>
+            <span key={text} className="tag-pill flex items-center gap-1.5 px-3 py-1.5 bg-[#161616]/80 border border-white/5 rounded-lg hover:border-accent/40 hover:bg-accent/5 transition-all duration-300 shadow-sm">
+              <Icon size={12} className="text-accent/80 flex-shrink-0" />
+              <span className="text-[11px] xl:text-xs text-gray-300 font-medium whitespace-nowrap">{text}</span>
             </span>
           ))}
         </div>
@@ -338,17 +352,25 @@ const WorksGallery = memo(function WorksGallery({ delay }) {
 const ExperienceBar = memo(function ExperienceBar({ delay }) {
   const ref = useFadeIn(delay);
   return (
-    <div ref={ref} className="card p-5 xl:p-4 flex-shrink-0">
+    <div ref={ref} className="card p-5 xl:p-6 flex-shrink-0 relative overflow-hidden group">
+      {/* Subtle background glow */}
+      <div className="absolute inset-0 bg-gradient-to-r from-accent/5 via-transparent to-accent/5 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+      
       <SectionLabel icon={Zap} text="Experience" />
-      <h2 className="font-display text-sm font-bold text-white mb-3 tracking-wide text-center">Companies I've Worked At</h2>
-      <div className="overflow-hidden">
-        <div className="flex gap-16 animate-marquee whitespace-nowrap">
+      <h2 className="font-display text-[15px] font-bold text-white mb-5 tracking-wide text-center">Companies I've Worked At</h2>
+      
+      <div className="overflow-hidden relative pb-1">
+        {/* Gradients for smooth scroll effect */}
+        <div className="absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-[#111111] to-transparent z-10" />
+        <div className="absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-[#111111] to-transparent z-10" />
+        
+        <div className="flex gap-12 sm:gap-16 animate-marquee whitespace-nowrap items-center group-hover:[animation-play-state:paused]">
           {[...COMPANIES, ...COMPANIES].map((company, i) => (
             <div
               key={i}
-              className="flex-shrink-0 flex items-center justify-center opacity-70 hover:opacity-100 grayscale hover:grayscale-0 transition-all duration-300"
+              className="flex-shrink-0 flex items-center justify-center opacity-50 hover:opacity-100 grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110"
             >
-              <img src={company.image} alt={company.name} className="h-8 w-auto object-contain" />
+              <img src={company.image} alt={company.name} className="h-10 sm:h-12 w-auto object-contain filter drop-shadow-md" />
             </div>
           ))}
         </div>
@@ -548,19 +570,19 @@ export default function App() {
         <div className="absolute bottom-[-10%] right-[15%] w-[350px] h-[350px] bg-purple-600 opacity-[0.03] rounded-full blur-[80px]" />
       </div>
 
-      <main className="relative z-10 flex-1 p-4 md:p-6 mx-auto w-full max-w-7xl xl:max-w-[1600px] xl:min-h-0 overflow-y-auto inner-scroll xl:overflow-visible flex flex-col">
-        <div className="flex flex-col lg:grid gap-4 md:gap-6 xl:gap-7 flex-1 xl:h-full lg:grid-cols-2 xl:grid-cols-[280px_minmax(0,1fr)_280px_230px]">
+      <main className="relative z-10 flex-1 p-3 md:p-5 mx-auto w-full max-w-7xl xl:max-w-[1700px] xl:min-h-0 overflow-y-auto inner-scroll xl:overflow-visible flex flex-col">
+        <div className="flex flex-col lg:grid gap-3 md:gap-4 xl:gap-4 flex-1 xl:h-full lg:grid-cols-2 xl:grid-cols-[300px_minmax(0,1fr)_300px_250px]">
 
           {/* ── COL 1: Stack + Projects ── */}
-          <div className="flex flex-col gap-4 md:gap-6 xl:gap-2 xl:min-h-0">
+          <div className="flex flex-col gap-3 md:gap-4 xl:gap-4 xl:min-h-0">
             <TechArsenal delay={0} />
             <WorksGallery delay={120} />
           </div>
 
           {/* ── COL 2: Stats + Hero + Experience ── */}
-          <div className="flex flex-col gap-4 md:gap-6 xl:gap-3 xl:min-h-0">
+          <div className="flex flex-col gap-3 md:gap-4 xl:gap-4 xl:min-h-0">
             {/* Stats row */}
-            <div className="grid grid-cols-3 gap-2 md:gap-3">
+            <div className="grid grid-cols-3 gap-3 md:gap-4">
               <StatCard value={11} label="Projects" delay={80} icon={Flag} />
               <StatCard value={6} label="Companies" delay={160} icon={Smile} />
               <StatCard value={6} label="Year Expertise" delay={240} icon={Sparkles} />
@@ -571,13 +593,13 @@ export default function App() {
           </div>
 
           {/* ── COL 3: Testimonials + Online Presence ── */}
-          <div className="flex flex-col gap-4 md:gap-6 xl:gap-3 xl:min-h-0">
+          <div className="flex flex-col gap-3 md:gap-4 xl:gap-4 xl:min-h-0">
             <Testimonials delay={160} />
             <OnlinePresence delay={280} />
           </div>
 
           {/* ── COL 4: Values + Get in Touch ── */}
-          <div className="flex flex-col gap-4 md:gap-6 xl:gap-3 xl:min-h-0">
+          <div className="flex flex-col gap-3 md:gap-4 xl:gap-4 xl:min-h-0">
             <ValuesCard delay={200} />
             <GetInTouch delay={360} />
           </div>
