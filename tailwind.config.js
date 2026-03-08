@@ -4,9 +4,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        // FIX 3 – Anthropic-style serif everywhere
-        display: ["'Cormorant Garamond'", "Georgia", "serif"],
-        body:    ["'Crimson Pro'",        "Georgia", "serif"],
+        // Modern tech aesthetic stack
+        display: ["'Plus Jakarta Sans'", "sans-serif"],
+        body:    ["'Inter'", "sans-serif"],
       },
       colors: {
         bg:           "#080808",
@@ -20,6 +20,7 @@ export default {
       animation: {
         "pulse-dot": "pulseDot 2s infinite",
         marquee:     "marquee 22s linear infinite",
+        "marquee-vertical": "marqueeVertical 22s linear infinite",
       },
       keyframes: {
         pulseDot: {
@@ -29,6 +30,10 @@ export default {
         marquee: {
           "0%":   { transform: "translateX(0%)" },
           "100%": { transform: "translateX(-50%)" },
+        },
+        marqueeVertical: {
+          "0%":   { transform: "translateY(0%)" },
+          "100%": { transform: "translateY(-50%)" },
         },
       },
     },

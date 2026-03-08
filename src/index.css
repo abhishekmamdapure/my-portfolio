@@ -15,10 +15,19 @@
   body {
     background-color: #080808;
     color: #ffffff;
-    /* FIX 3 – serif body font */
-    font-family: 'Crimson Pro', Georgia, serif;
+    /* Modern sans-serif body font */
+    font-family: 'Inter', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  @keyframes marqueeVertical {
+    0% { transform: translateY(0%); }
+    100% { transform: translateY(-50%); }
+  }
+
+  .animate-marquee-vertical {
+    animation: marqueeVertical 22s linear infinite;
   }
 
   ::selection { background: #7c5cfc44; color: #fff; }
