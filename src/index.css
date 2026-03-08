@@ -33,6 +33,14 @@
   ::selection { background: #7c5cfc44; color: #fff; }
 }
 
+html.light-mode {
+  filter: invert(1) hue-rotate(180deg);
+}
+html.light-mode img,
+html.light-mode video {
+  filter: invert(1) hue-rotate(180deg);
+}
+
 /* ── COMPONENTS ───────────────────────────────────────────────────── */
 @layer components {
   .card {

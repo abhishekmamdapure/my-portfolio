@@ -3,8 +3,8 @@ import {
   MapPin, Globe, Clock, BookOpen, Heart, Car, Utensils, Dog,
   Mail, Calendar, Download, ExternalLink, Twitter, Instagram, Linkedin,
   Star, Layers, Code2, Cpu, Zap, GitBranch, Shield, Users, Eye, Lightbulb,
-  VenetianMask, Sun, Crown, LifeBuoy, Maximize, Activity, Wrench,
-  Flag, Smile, Sparkles
+  VenetianMask, Sun, Moon, Crown, LifeBuoy, Maximize, Activity, Wrench,
+  Flag, Smile, Sparkles, Check, X
 } from "lucide-react";
 
 // ─── DATA ──────────────────────────────────────────────────────────────────
@@ -22,6 +22,12 @@ const SKILLS = [
   { name: "SQL", icon: "🗄️" },
   { name: "Framer", icon: "✦" },
   { name: "MLOps", icon: "⚙️" },
+  { name: "Hugging Face", icon: "🤗" },
+  { name: "Agentic AI", icon: "🧠" },
+  { name: "Docker", icon: "🐳" },
+  { name: "Prompt Eng.", icon: "✍️" },
+  { name: "Computer Vision", icon: "👁️" },
+  { name: "React & JS", icon: "⚛️" },
 ];
 
 const VALUES = [
@@ -32,36 +38,48 @@ const VALUES = [
   { name: "Team-First", icon: Wrench },
 ];
 
-// FIX 4 – added extra testimonial visible in the reference screenshot
+// FIX 4 – updated testimonials list with real data and designations
 const TESTIMONIALS = [
   {
-    name: null, location: null, date: null,
-    text: "He showed real perseverance and leadership during our ML project.",
+    name: "Priyanka Kasture", designation: "Founder Hypd and Marketing Expert", date: "11 Feb 2025",
+    text: "Abhishek is hardworking, sharp, and combines strong technical skills with real business sense, a rare and valuable mix.",
   },
   {
-    name: "Jitendra Chauhan", location: "Pune, India", date: "2, Oct 2019",
-    text: "Abhishek is a standout talent, skilled, dependable, and someone who can lead, collaborate, and lift an entire team effortlessly.",
+    name: "Suvajit Sen", designation: "Data Science Professional @ Diageo", date: "13 May 2021",
+    text: "Abhishek worked as an intern in our team in one of the advanced and complex AI project. He has shown great research capability, dedication and positive attitude towards work. Being an intern, how fast he learned the mathematical concepts, AI algorithms and python coding is commendable. His zeal to learn and dedication will be the key to his successful career.",
   },
   {
-    name: "Priyanka Kasture", location: "Pune, India", date: "11. Feb 2025",
-    text: "Abhishek is hardworking, sharp, and combines strong technical skills with real business sense — a rare and valuable mix.",
+    name: "Ankita Katre", designation: "Computational Modeling @ Simreka", date: "16 Nov 2020",
+    text: "Abhishek is a self-motivated, enthusiastic person and is passionate about his work. He worked with me on an ML project on spam detector during his M.Tech. and during that time I saw his perseverance, positive-attitude and the quality of taking initiatives. He is a team player as well as has inherent qualities of a good leader too.",
+  },
+  {
+    name: "Jitendra Chauhan", designation: "Sr. Program Manager at SPS Commerce | Ex - Amazon", date: "2 Oct 2019",
+    text: "I rarely come across real talents who stand out like Abhishek. I had the pleasure of working with him for ~2 years, collaborating on several team projects. Abhishek’s ability to handle multiple tasks was unlike any I’ve seen before and made a dramatic increase in the productivity level. Another quality he holds is, no matter how tense a situation is, he made sure everyone left with a smile. I was always in awe of Abhishek’s ability to command a room and get people on board with ideas – even people who were initially on completely different pages. As a team member or a leader, he earns my highest recommendation.",
   },
 ];
 
-// FIX 4 – updated project list to match reference screenshot
+// FIX 4 – updated project list to use images from public/projects
 const PROJECTS = [
-  { title: "Embeddings-Based Search Engine", color: "from-violet-900  to-indigo-900", emoji: "🔍" },
-  { title: "Medical NLP Entity Extraction System", color: "from-fuchsia-900 to-pink-900", emoji: "🏥" },
-  { title: "AI Chatbot for Contextual Graphs & Plots", color: "from-rose-900    to-pink-800", emoji: "💬" },
-  { title: "Life Science AI Platform", color: "from-emerald-900 to-teal-900", emoji: "🧬" },
+  { image: "/projects/1 (1).png" },
+  { image: "/projects/2 (1).png" },
+  { image: "/projects/3 (1).png" },
+  { image: "/projects/4 (1).png" },
+  { image: "/projects/5 (1).png" },
+  { image: "/projects/6 (1).png" },
 ];
 
-const COMPANIES = ["HYPD", "Citi", "Pienomial", "Affine", "Amazon"];
+const COMPANIES = [
+  { name: "HYPD", image: "/companies/hypd.png" },
+  { name: "Citi", image: "/companies/citi.png" },
+  { name: "Pienomial", image: "/companies/pienomial.png" },
+  { name: "Affine", image: "/companies/affine.png" },
+  { name: "Amazon", image: "/companies/amazon.png" }
+];
 
 const SOCIALS = [
   { icon: Twitter, handle: "@afor_abhishek", url: "https://twitter.com/afor_abhishek" },
   { icon: Instagram, handle: "@abhishek.mamdapure", url: "https://instagram.com/abhishek.mamdapure" },
-  { icon: Linkedin, handle: "/abhishekmamdapure", url: "https://linkedin.com/in/abhishekmamdapure" },
+  { icon: Linkedin, handle: "abhishekmamdapure", url: "https://linkedin.com/in/abhishekmamdapure" },
 ];
 
 // ─── HOOKS ────────────────────────────────────────────────────────────────
@@ -116,14 +134,14 @@ const StatCard = memo(function StatCard({ value, label, delay, icon: Icon }) {
   const n = useCountUp(value, delay);
   const ref = useFadeIn(delay);
   return (
-    <div ref={ref} className="card card-hover flex-1 flex flex-col items-center justify-center text-center py-6 px-2">
-      <div className="font-display flex items-center justify-center mb-5 mt-2">
-        <span className="text-[3.5rem] font-bold bg-gradient-to-b from-white to-white/20 bg-clip-text text-transparent leading-none">{n}</span>
-        <span className="text-accent text-[2.5rem] font-bold ml-1 leading-none">+</span>
+    <div ref={ref} className="card card-hover flex-1 flex flex-col items-center justify-center text-center py-5 xl:py-6 px-2">
+      <div className="font-display flex items-center justify-center mb-4 xl:mb-5 mt-2">
+        <span className="text-4xl xl:text-[3.5rem] font-bold bg-gradient-to-b from-white to-white/20 bg-clip-text text-transparent leading-none">{n}</span>
+        <span className="text-accent text-3xl xl:text-[2.5rem] font-bold ml-1 leading-none">+</span>
       </div>
-      <div className="flex items-center gap-2 px-4 py-1.5 bg-[#161616] border border-border rounded-full shadow-inner mb-1">
-        {Icon && <Icon size={14} className="text-accent" />}
-        <span className="text-xs text-gray-200 font-body font-medium">{label}</span>
+      <div className="flex items-center gap-1.5 xl:gap-2 px-2.5 sm:px-4 py-1.5 bg-[#161616] border border-border rounded-full shadow-inner mb-1 max-w-[95%] overflow-hidden">
+        {Icon && <Icon size={12} className="text-accent hidden sm:block shrink-0" />}
+        <span className="text-[10px] xl:text-xs text-gray-200 font-body font-medium truncate">{label}</span>
       </div>
     </div>
   );
@@ -181,7 +199,7 @@ const HeroCard = memo(function HeroCard({ delay }) {
   const [imgFailed, setImgFailed] = useState(false);
 
   return (
-    <div ref={ref} className="card p-4 relative overflow-hidden flex-1 min-h-0 flex flex-col">
+    <div ref={ref} className="card p-5 xl:p-4 relative overflow-hidden h-auto xl:flex-1 xl:min-h-0 flex flex-col">
       <div className="absolute -top-16 -left-16 w-56 h-56 bg-accent opacity-[0.05] rounded-full blur-3xl pointer-events-none" />
 
       {/* Status + Resume row */}
@@ -208,7 +226,7 @@ const HeroCard = memo(function HeroCard({ delay }) {
               <span className="font-display font-bold text-white text-xl">AM</span>
             ) : (
               <img
-                src="/profile.jpg"
+                src="/profile.png"
                 alt="Abhishek Mamdapure"
                 className="w-full h-full object-cover"
                 onError={() => setImgFailed(true)}
@@ -222,9 +240,9 @@ const HeroCard = memo(function HeroCard({ delay }) {
           <h1 className="font-display text-xl font-bold text-white leading-tight tracking-wide">
             Abhishek Mamdapure
           </h1>
-          <p className="text-gray-400 text-sm mt-0.5 font-body flex gap-4 items-center">
+          <p className="text-gray-400 text-sm mt-0.5 font-body flex gap-1.5 items-center">
             <span>I'm a</span>
-            <span className="text-accent font-semibold bg-accent/10 px-1.5 py-0.5 rounded-md">
+            <span className="text-accent font-semibold">
               <Typewriter words={["Data Scientist", "Developer", "Problem Solver", "GenAI-Engineer"]} />
             </span>
           </p>
@@ -237,7 +255,6 @@ const HeroCard = memo(function HeroCard({ delay }) {
           {[
             { icon: MapPin, text: "Pune, India" },
             { icon: Globe, text: "English, Hindi & Marathi" },
-            { icon: Clock, text: "IST" },
             { icon: Cpu, text: "Mathematical Modeling & Simulation" },
             { icon: BookOpen, text: "Pune University" },
             { icon: Heart, text: "Married" },
@@ -261,7 +278,7 @@ const HeroCard = memo(function HeroCard({ delay }) {
 const TechArsenal = memo(function TechArsenal({ delay }) {
   const ref = useFadeIn(delay);
   return (
-    <div ref={ref} className="card p-4 flex-1 min-h-0 flex flex-col">
+    <div ref={ref} className="card p-5 xl:p-4 flex flex-col h-[280px] xl:h-auto xl:flex-1 xl:min-h-0">
       <SectionLabel icon={Layers} text="My Stack" />
       <h2 className="font-display text-base font-bold text-white mb-3 tracking-wide text-center">Tech Arsenal</h2>
       <div
@@ -290,7 +307,7 @@ const TechArsenal = memo(function TechArsenal({ delay }) {
 const WorksGallery = memo(function WorksGallery({ delay }) {
   const ref = useFadeIn(delay);
   return (
-    <div ref={ref} className="card p-4 flex-1 min-h-0 flex flex-col">
+    <div ref={ref} className="card p-5 xl:p-4 flex flex-col h-[320px] xl:h-auto xl:flex-1 xl:min-h-0">
       <SectionLabel icon={Code2} text="Projects" />
       <h2 className="font-display text-base font-bold text-white mb-3 tracking-wide text-center">Works Gallery</h2>
       <div
@@ -303,12 +320,10 @@ const WorksGallery = memo(function WorksGallery({ delay }) {
         <div className="flex flex-col gap-2 animate-marquee-vertical hover:[animation-play-state:paused] h-max pb-2">
           {[...PROJECTS, ...PROJECTS].map((p, i) => (
             <div
-              key={`${p.title}-${i}`}
-              className={`relative rounded-xl bg-gradient-to-br ${p.color} border border-border p-3 h-16 flex items-end overflow-hidden group cursor-pointer hover:scale-[1.015] transition-transform duration-200 flex-shrink-0 w-full`}
+              key={`project-${i}`}
+              className="relative rounded-xl border border-border h-28 flex items-center justify-center overflow-hidden group cursor-pointer hover:scale-[1.015] transition-transform duration-200 flex-shrink-0 w-full bg-black/40"
             >
-              <div className="absolute top-2 right-2 text-xl opacity-25 group-hover:opacity-50 transition-opacity">{p.emoji}</div>
-              <span className="text-xs font-medium text-gray-200 leading-snug z-10">{p.title}</span>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+              <img src={p.image} alt={`Project ${i}`} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
             </div>
           ))}
         </div>
@@ -323,18 +338,18 @@ const WorksGallery = memo(function WorksGallery({ delay }) {
 const ExperienceBar = memo(function ExperienceBar({ delay }) {
   const ref = useFadeIn(delay);
   return (
-    <div ref={ref} className="card p-4">
+    <div ref={ref} className="card p-5 xl:p-4 flex-shrink-0">
       <SectionLabel icon={Zap} text="Experience" />
       <h2 className="font-display text-sm font-bold text-white mb-3 tracking-wide text-center">Companies I've Worked At</h2>
       <div className="overflow-hidden">
-        <div className="flex gap-6 animate-marquee whitespace-nowrap">
-          {[...COMPANIES, ...COMPANIES].map((name, i) => (
-            <span
+        <div className="flex gap-16 animate-marquee whitespace-nowrap">
+          {[...COMPANIES, ...COMPANIES].map((company, i) => (
+            <div
               key={i}
-              className="text-muted font-display font-bold text-base tracking-widest hover:text-white transition-colors duration-200 cursor-default flex-shrink-0"
+              className="flex-shrink-0 flex items-center justify-center opacity-70 hover:opacity-100 grayscale hover:grayscale-0 transition-all duration-300"
             >
-              {name}
-            </span>
+              <img src={company.image} alt={company.name} className="h-8 w-auto object-contain" />
+            </div>
           ))}
         </div>
       </div>
@@ -347,35 +362,72 @@ const ExperienceBar = memo(function ExperienceBar({ delay }) {
 // FIX 4 – testimonials list scrolls inside the card
 const Testimonials = memo(function Testimonials({ delay }) {
   const ref = useFadeIn(delay);
+  const [selected, setSelected] = useState(null);
+
   return (
-    <div ref={ref} className="card p-4 flex-1 min-h-0 flex flex-col">
-      <SectionLabel icon={VenetianMask} text="Testimonials" />
-      <h2 className="font-display text-sm font-bold text-white mb-3 tracking-wide text-center">From People I've Worked With</h2>
-      <div
-        className="flex-1 overflow-hidden relative"
-        style={{
-          maskImage: "linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)",
-          WebkitMaskImage: "linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)"
-        }}
-      >
-        <div className="flex flex-col gap-2 animate-marquee-vertical hover:[animation-play-state:paused] h-max pb-2">
-          {[...TESTIMONIALS, ...TESTIMONIALS].map((t, i) => (
-            <div key={i} className="bg-[#161616] rounded-xl border border-border p-3 flex-shrink-0">
-              {t.name && (
-                <div className="flex items-start justify-between mb-1.5">
-                  <div>
-                    <p className="text-xs font-semibold text-white font-display tracking-wide">{t.name}</p>
-                    <p className="text-[10px] text-muted">{t.location}</p>
+    <>
+      <div ref={ref} className="card p-5 xl:p-4 flex flex-col h-[360px] xl:h-auto xl:flex-1 xl:min-h-0">
+        <SectionLabel icon={VenetianMask} text="Testimonials" />
+        <h2 className="font-display text-sm font-bold text-white mb-3 tracking-wide text-center">From People I've Worked With</h2>
+        <div
+          className="flex-1 overflow-hidden relative"
+          style={{
+            maskImage: "linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)",
+            WebkitMaskImage: "linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)"
+          }}
+        >
+          <div className="flex flex-col gap-2 animate-[marqueeVertical_55s_linear_infinite] hover:[animation-play-state:paused] h-max pb-2">
+            {[...TESTIMONIALS, ...TESTIMONIALS].map((t, i) => (
+              <div
+                key={i}
+                onClick={() => setSelected(t)}
+                className="bg-[#161616] rounded-xl border border-border p-3 flex-shrink-0 cursor-pointer hover:border-accent hover:bg-[#1a1a1a] transition-all duration-300"
+              >
+                {t.name && (
+                  <div className="flex items-start justify-between mb-1.5">
+                    <div>
+                      <p className="text-[11px] font-semibold text-white font-display tracking-wide">{t.name}</p>
+                      <p className="text-[9px] text-muted leading-tight mt-0.5 max-w-[90%]">{t.designation || t.location}</p>
+                    </div>
+                    <span className="text-[9px] text-muted ml-2 flex-shrink-0">{t.date}</span>
                   </div>
-                  <span className="text-[10px] text-muted ml-2 flex-shrink-0">{t.date}</span>
-                </div>
-              )}
-              <p className="text-xs text-gray-400 leading-relaxed font-body italic">{t.text}</p>
-            </div>
-          ))}
+                )}
+                <p className="text-[10px] text-gray-400 leading-normal font-body line-clamp-4">{t.text}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+
+      {selected && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 animate-fade-in"
+          onClick={() => setSelected(null)}
+        >
+          <div
+            className="bg-[#111111] border border-accent/30 rounded-2xl p-6 md:p-8 max-w-md w-full shadow-2xl animate-spring-up cursor-default relative overflow-hidden group"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Awesome glowing orb behind text */}
+            <div className="absolute -top-20 -right-20 w-48 h-48 bg-accent opacity-10 rounded-full blur-[60px] pointer-events-none group-hover:opacity-20 transition-opacity duration-700" />
+            <div className="flex justify-between items-start mb-4">
+              <div>
+                <p className="text-base font-semibold text-white font-display tracking-wide">{selected.name}</p>
+                <p className="text-sm text-muted leading-tight mt-1">{selected.designation || selected.location}</p>
+              </div>
+              <button
+                onClick={() => setSelected(null)}
+                className="text-gray-400 hover:text-white bg-[#1a1a1a] hover:bg-[#252525] p-2 rounded-full border border-border transition-colors duration-200"
+              >
+                <X size={16} />
+              </button>
+            </div>
+            <p className="text-sm text-gray-300 leading-relaxed font-body">{selected.text}</p>
+            {selected.date && <span className="text-xs text-muted mt-5 block">{selected.date}</span>}
+          </div>
+        </div>
+      )}
+    </>
   );
 });
 
@@ -384,7 +436,7 @@ const Testimonials = memo(function Testimonials({ delay }) {
 const ValuesCard = memo(function ValuesCard({ delay }) {
   const ref = useFadeIn(delay);
   return (
-    <div ref={ref} className="card p-4">
+    <div ref={ref} className="card p-5 xl:p-4 flex-shrink-0">
       <SectionLabel icon={Star} text="Values" />
       <h2 className="font-display text-sm font-bold text-white mb-3 tracking-wide text-center">Principles I Build By</h2>
       <div className="flex flex-col gap-1.5">
@@ -406,7 +458,7 @@ const ValuesCard = memo(function ValuesCard({ delay }) {
 const OnlinePresence = memo(function OnlinePresence({ delay }) {
   const ref = useFadeIn(delay);
   return (
-    <div ref={ref} className="card p-4">
+    <div ref={ref} className="card p-5 xl:p-4 flex-shrink-0">
       <SectionLabel icon={Sun} text="Follow Me" />
       <h2 className="font-display text-sm font-bold text-white mb-3 tracking-wide text-center">Online Presence</h2>
       <div className="flex flex-col gap-1.5">
@@ -428,8 +480,33 @@ const OnlinePresence = memo(function OnlinePresence({ delay }) {
 
 const GetInTouch = memo(function GetInTouch({ delay }) {
   const ref = useFadeIn(delay);
+  const [copied, setCopied] = useState(false);
+  const [isLightMode, setIsLightMode] = useState(false);
+
+  useEffect(() => {
+    setIsLightMode(document.documentElement.classList.contains("light-mode"));
+  }, []);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText("mamdapureabhishek@gmail.com");
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const toggleTheme = () => {
+    document.documentElement.classList.toggle("light-mode");
+    setIsLightMode(!isLightMode);
+  };
+
   return (
-    <div ref={ref} className="card card-hover p-4 relative overflow-hidden flex flex-col items-center text-center flex-1">
+    <div ref={ref} className="card card-hover p-5 xl:p-4 relative overflow-hidden flex flex-col items-center justify-center text-center h-[260px] xl:h-auto xl:flex-1 xl:min-h-0 mt-auto xl:mt-0">
+      <button
+        onClick={toggleTheme}
+        className="absolute top-3 right-3 w-7 h-7 flex items-center justify-center rounded-full bg-[#161616] border border-border text-gray-400 hover:text-white hover:border-accent transition-all duration-200 z-20"
+        title="Toggle Theme"
+      >
+        {isLightMode ? <Moon size={12} /> : <Sun size={12} />}
+      </button>
       <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-purple-900/20 pointer-events-none" />
       <div className="w-12 h-12 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center mb-3 z-10">
         <Crown size={20} className="text-accent" />
@@ -437,12 +514,14 @@ const GetInTouch = memo(function GetInTouch({ delay }) {
       <h2 className="font-display text-base font-bold text-white mb-0.5 tracking-wide z-10">Get in Touch</h2>
       <p className="text-[11px] text-muted mb-4 font-body z-10">Would Love To Hear From You</p>
       <div className="flex flex-col gap-2 w-full z-10">
-        <a
-          href="mailto:mamdapureabhishek@gmail.com"
-          className="flex items-center justify-center gap-2 px-3 py-2.5 bg-[#161616] border border-border rounded-xl text-xs text-gray-300 hover:border-accent hover:text-white transition-all duration-200"
+        <button
+          onClick={handleCopy}
+          className="group flex items-center justify-center gap-2 px-3 py-2.5 bg-[#161616] border border-border rounded-xl text-xs text-gray-300 hover:border-accent hover:text-white transition-all duration-200"
         >
-          <Mail size={14} className="text-accent" /> Email Me
-        </a>
+          {copied ? <Check size={14} className="text-emerald-400" /> : <Mail size={14} className="text-accent" />}
+          <span className="group-hover:hidden">{copied ? "Copied!" : "Email Me"}</span>
+          <span className="hidden group-hover:inline text-[10px]">{copied ? "Copied to Clipboard" : "mamdapureabhishek@gmail.com"}</span>
+        </button>
         <a
           href="https://cal.com/abhishek-mamdapure"
           target="_blank"
@@ -460,8 +539,8 @@ const GetInTouch = memo(function GetInTouch({ delay }) {
 
 export default function App() {
   return (
-    // FIX 1 – h-screen + overflow-hidden locks the whole page to one viewport
-    <div className="h-screen overflow-hidden bg-bg noise font-body flex flex-col">
+    // Responsive root container
+    <div className="min-h-screen xl:h-screen xl:overflow-hidden bg-bg noise font-body flex flex-col relative w-full">
 
       {/* Ambient background glows */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
@@ -469,29 +548,19 @@ export default function App() {
         <div className="absolute bottom-[-10%] right-[15%] w-[350px] h-[350px] bg-purple-600 opacity-[0.03] rounded-full blur-[80px]" />
       </div>
 
-      {/*
-        FIX 1 – flex-1 + min-h-0 ensures the grid fills remaining height
-        without pushing the page taller than 100vh.
-
-        FIX 4 – 4-column layout matching the reference screenshot:
-          [Tech Arsenal + Works Gallery] | [Stats + Hero + Experience] | [Testimonials] | [Values + Presence + Touch]
-      */}
-      <main className="relative z-10 flex-1 min-h-0 p-3">
-        <div
-          className="h-full grid gap-7"
-          style={{ gridTemplateColumns: "280px minmax(0,1fr) 280px 230px" }}
-        >
+      <main className="relative z-10 flex-1 p-4 md:p-6 mx-auto w-full max-w-7xl xl:max-w-[1600px] xl:min-h-0 overflow-y-auto inner-scroll xl:overflow-visible flex flex-col">
+        <div className="flex flex-col lg:grid gap-4 md:gap-6 xl:gap-7 flex-1 xl:h-full lg:grid-cols-2 xl:grid-cols-[280px_minmax(0,1fr)_280px_230px]">
 
           {/* ── COL 1: Stack + Projects ── */}
-          <div className="flex flex-col gap-2 min-h-0">
+          <div className="flex flex-col gap-4 md:gap-6 xl:gap-2 xl:min-h-0">
             <TechArsenal delay={0} />
             <WorksGallery delay={120} />
           </div>
 
           {/* ── COL 2: Stats + Hero + Experience ── */}
-          <div className="flex flex-col gap-3 min-h-0">
+          <div className="flex flex-col gap-4 md:gap-6 xl:gap-3 xl:min-h-0">
             {/* Stats row */}
-            <div className="flex gap-3">
+            <div className="grid grid-cols-3 gap-2 md:gap-3">
               <StatCard value={11} label="Projects" delay={80} icon={Flag} />
               <StatCard value={6} label="Companies" delay={160} icon={Smile} />
               <StatCard value={6} label="Year Expertise" delay={240} icon={Sparkles} />
@@ -502,19 +571,19 @@ export default function App() {
           </div>
 
           {/* ── COL 3: Testimonials + Online Presence ── */}
-          <div className="flex flex-col gap-3 min-h-0">
+          <div className="flex flex-col gap-4 md:gap-6 xl:gap-3 xl:min-h-0">
             <Testimonials delay={160} />
             <OnlinePresence delay={280} />
           </div>
 
           {/* ── COL 4: Values + Get in Touch ── */}
-          <div className="flex flex-col gap-3 min-h-0">
+          <div className="flex flex-col gap-4 md:gap-6 xl:gap-3 xl:min-h-0">
             <ValuesCard delay={200} />
             <GetInTouch delay={360} />
           </div>
 
         </div>
-      </main >
-    </div >
+      </main>
+    </div>
   );
 }

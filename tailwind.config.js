@@ -21,6 +21,8 @@ export default {
         "pulse-dot": "pulseDot 2s infinite",
         marquee:     "marquee 22s linear infinite",
         "marquee-vertical": "marqueeVertical 22s linear infinite",
+        "fade-in":   "fadeIn 0.3s ease-out forwards",
+        "spring-up": "springUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards",
       },
       keyframes: {
         pulseDot: {
@@ -34,6 +36,14 @@ export default {
         marqueeVertical: {
           "0%":   { transform: "translateY(0%)" },
           "100%": { transform: "translateY(-50%)" },
+        },
+        fadeIn: {
+          "0%": { opacity: 0, backdropFilter: "blur(0px)" },
+          "100%": { opacity: 1, backdropFilter: "blur(4px)" },
+        },
+        springUp: {
+          "0%": { transform: "scale(0.8) translateY(40px)", opacity: 0 },
+          "100%": { transform: "scale(1) translateY(0)", opacity: 1 },
         },
       },
     },
