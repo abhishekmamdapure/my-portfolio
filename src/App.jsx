@@ -331,7 +331,7 @@ const WorksGallery = memo(function WorksGallery({ delay }) {
           WebkitMaskImage: "linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)"
         }}
       >
-        <div className="flex flex-col gap-2 animate-marquee-vertical hover:[animation-play-state:paused] h-max pb-2">
+        <div className="flex flex-col gap-4 animate-marquee-vertical hover:[animation-play-state:paused] h-max pb-4">
           {[...PROJECTS, ...PROJECTS].map((p, i) => (
             <div
               key={`project-${i}`}
