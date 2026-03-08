@@ -200,7 +200,7 @@ const HeroCard = memo(function HeroCard({ delay }) {
       </div>
 
       {/* Profile row */}
-      <div className="flex items-center gap-4 mb-3">
+      <div className="flex items-center gap-5 mb-3">
         {/* FIX 2 – photo from public/profile.jpg */}
         <div className="relative flex-shrink-0">
           <div className="w-16 h-16 rounded-xl overflow-hidden border border-accent/30 bg-gradient-to-br from-accent/40 to-purple-900/60 flex items-center justify-center">
@@ -222,7 +222,7 @@ const HeroCard = memo(function HeroCard({ delay }) {
           <h1 className="font-display text-xl font-bold text-white leading-tight tracking-wide">
             Abhishek Mamdapure
           </h1>
-          <p className="text-gray-400 text-sm mt-0.5 font-body flex gap-1 items-center">
+          <p className="text-gray-400 text-sm mt-0.5 font-body flex gap-4 items-center">
             <span>I'm a</span>
             <span className="text-accent font-semibold bg-accent/10 px-1.5 py-0.5 rounded-md">
               <Typewriter words={["Data Scientist", "Developer", "Problem Solver", "GenAI-Engineer"]} />
@@ -327,7 +327,7 @@ const ExperienceBar = memo(function ExperienceBar({ delay }) {
       <SectionLabel icon={Zap} text="Experience" />
       <h2 className="font-display text-sm font-bold text-white mb-3 tracking-wide text-center">Companies I've Worked At</h2>
       <div className="overflow-hidden">
-        <div className="flex gap-10 animate-marquee whitespace-nowrap">
+        <div className="flex gap-6 animate-marquee whitespace-nowrap">
           {[...COMPANIES, ...COMPANIES].map((name, i) => (
             <span
               key={i}
