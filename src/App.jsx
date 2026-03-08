@@ -215,7 +215,7 @@ const HeroCard = memo(function HeroCard({ delay }) {
           download
           className="flex items-center gap-2 px-4 py-1.5 bg-[#161616]/80 backdrop-blur-sm border border-border/80 rounded-full text-xs text-gray-300 hover:bg-accent/10 hover:border-accent hover:text-white transition-all duration-300 shadow-sm group/btn"
         >
-          <span className="font-medium tracking-wide">Resume</span> 
+          <span className="font-medium tracking-wide">Resume</span>
           <Download size={13} className="text-accent group-hover/btn:-translate-y-0.5 transition-transform" />
         </a>
       </div>
@@ -253,7 +253,7 @@ const HeroCard = memo(function HeroCard({ delay }) {
           </p>
         </div>
       </div>
-      
+
       {/* Short Bio */}
       <div className="relative z-10 mb-5">
         <p className="text-gray-400 text-sm xl:text-[14.5px] leading-relaxed font-body">
@@ -355,15 +355,15 @@ const ExperienceBar = memo(function ExperienceBar({ delay }) {
     <div ref={ref} className="card p-5 xl:p-6 flex-shrink-0 relative overflow-hidden group">
       {/* Subtle background glow */}
       <div className="absolute inset-0 bg-gradient-to-r from-accent/5 via-transparent to-accent/5 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-      
+
       <SectionLabel icon={Zap} text="Experience" />
       <h2 className="font-display text-[15px] font-bold text-white mb-5 tracking-wide text-center">Companies I've Worked At</h2>
-      
+
       <div className="overflow-hidden relative pb-1">
         {/* Gradients for smooth scroll effect */}
         <div className="absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-[#111111] to-transparent z-10" />
         <div className="absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-[#111111] to-transparent z-10" />
-        
+
         <div className="flex gap-12 sm:gap-16 animate-marquee whitespace-nowrap items-center group-hover:[animation-play-state:paused]">
           {[...COMPANIES, ...COMPANIES].map((company, i) => (
             <div
@@ -545,7 +545,7 @@ const GetInTouch = memo(function GetInTouch({ delay }) {
           <span className="hidden group-hover:inline text-[10px]">{copied ? "Copied to Clipboard" : "mamdapureabhishek@gmail.com"}</span>
         </button>
         <a
-          href="https://cal.com/abhishek-mamdapure"
+          href="https://calendly.com/mamdapureabhishek/30-min-discussion-with-abhishek-mamdapure"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center gap-2 px-3 py-2.5 bg-[#161616] border border-border rounded-xl text-xs text-gray-300 hover:border-accent hover:text-white transition-all duration-200"
