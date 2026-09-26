@@ -2,5 +2,14 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "framework": "vite",
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/jev", "destination": "https://jev-information-extraction-fibby-prod-telegram.up.railway.app/", "permanent": false },
+    { "source": "/jev/:path*", "destination": "https://jev-information-extraction-fibby-prod-telegram.up.railway.app/:path*", "permanent": false },
+    { "source": "/nobel", "destination": "https://nobelprizewinners.info/", "permanent": false },
+    { "source": "/nobel/:path*", "destination": "https://nobelprizewinners.info/:path*", "permanent": false },
+    { "source": "/github", "destination": "https://github.com/abhishekmamdapure", "permanent": false },
+    { "source": "/resume", "destination": "/resume.pdf", "permanent": false }
+  ],
   "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }

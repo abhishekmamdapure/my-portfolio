@@ -4,8 +4,10 @@ import {
   Mail, Calendar, Download, ExternalLink, Twitter, Instagram, Linkedin,
   Star, Layers, Code2, Cpu, Zap, GitBranch, Shield, Users, Eye, Lightbulb,
   VenetianMask, Sun, Moon, Crown, LifeBuoy, Maximize, Activity, Wrench,
-  Flag, Smile, Sparkles, Check, X
+  Flag, Smile, Sparkles, Check, X, Github, ArrowRight
 } from "lucide-react";
+import { PROJECTS, WORK_HIGHLIGHTS, GITHUB_URL } from "./data/projects";
+import { ProjectLinks } from "./pages.jsx";
 
 // ─── DATA ──────────────────────────────────────────────────────────────────
 
@@ -58,16 +60,6 @@ const TESTIMONIALS = [
   },
 ];
 
-// FIX 4 – updated project list to use images from public/projects
-const PROJECTS = [
-  { image: "/projects/1 (1).png" },
-  { image: "/projects/2 (1).png" },
-  { image: "/projects/3 (1).png" },
-  { image: "/projects/4 (1).png" },
-  { image: "/projects/5 (1).png" },
-  { image: "/projects/6 (1).png" },
-];
-
 const COMPANIES = [
   { name: "HYPD", image: "/companies/hypd.png" },
   { name: "Citi", image: "/companies/citi.png" },
@@ -77,9 +69,10 @@ const COMPANIES = [
 ];
 
 const SOCIALS = [
-  { icon: Twitter, handle: "@afor_abhishek", url: "https://twitter.com/afor_abhishek" },
-  { icon: Instagram, handle: "@abhishek.mamdapure", url: "https://instagram.com/abhishek.mamdapure" },
-  { icon: Linkedin, handle: "abhishekmamdapure", url: "https://linkedin.com/in/abhishekmamdapure" },
+  { icon: Github, handle: "abhishekmamdapure", url: GITHUB_URL, label: "GitHub" },
+  { icon: Twitter, handle: "@afor_abhishek", url: "https://twitter.com/afor_abhishek", label: "X (Twitter)" },
+  { icon: Linkedin, handle: "abhishekmamdapure", url: "https://linkedin.com/in/abhishekmamdapure", label: "LinkedIn" },
+  { icon: Instagram, handle: "@abhishek.mamdapure", url: "https://instagram.com/abhishek.mamdapure", label: "Instagram" },
 ];
 
 // ─── HOOKS ────────────────────────────────────────────────────────────────
@@ -147,50 +140,6 @@ const StatCard = memo(function StatCard({ value, label, delay, icon: Icon }) {
   );
 });
 
-// ─── TYPEWRITER ───────────────────────────────────────────────────────────
-
-const Typewriter = memo(function Typewriter({ words, delay = 2000, typingSpeed = 100, deletingSpeed = 50 }) {
-  const [text, setText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [loopNum, setLoopNum] = useState(0);
-
-  useEffect(() => {
-    let timer;
-    if (words.length === 0) return;
-    const currentWord = words[loopNum % words.length];
-
-    if (isDeleting) {
-      if (text === "") {
-        setIsDeleting(false);
-        setLoopNum(loopNum + 1);
-        // Small pause before typing next word is handled by the initial state of the next cycle
-      } else {
-        timer = setTimeout(() => {
-          setText(currentWord.substring(0, text.length - 1));
-        }, deletingSpeed);
-      }
-    } else {
-      if (text === currentWord) {
-        timer = setTimeout(() => {
-          setIsDeleting(true);
-        }, delay);
-      } else {
-        timer = setTimeout(() => {
-          setText(currentWord.substring(0, text.length + 1));
-        }, typingSpeed);
-      }
-    }
-    return () => clearTimeout(timer);
-  }, [text, isDeleting, loopNum, words, delay, typingSpeed, deletingSpeed]);
-
-  return (
-    <span className="inline-flex items-center min-w-[110px]">
-      {text}
-      <span className="animate-pulse ml-[1px] -translate-y-[1px] font-light">|</span>
-    </span>
-  );
-});
-
 // ─── HERO CARD ────────────────────────────────────────────────────────────
 
 // FIX 2 – loads /profile.jpg, falls back to "AM" initials
@@ -215,7 +164,7 @@ const HeroCard = memo(function HeroCard({ delay }) {
           download
           className="flex items-center gap-2 px-4 py-1.5 bg-[#161616]/80 backdrop-blur-sm border border-border/80 rounded-full text-xs text-gray-300 hover:bg-accent/10 hover:border-accent hover:text-white transition-all duration-300 shadow-sm group/btn"
         >
-          <span className="font-medium tracking-wide">Resume</span>
+          <span className="font-medium tracking-wide">Download resume</span>
           <Download size={13} className="text-accent group-hover/btn:-translate-y-0.5 transition-transform" />
         </a>
       </div>
@@ -229,7 +178,10 @@ const HeroCard = memo(function HeroCard({ delay }) {
               <span className="font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-accent to-purple-500 text-3xl">AM</span>
             ) : (
               <img
-                src="/profile.png"
+                src="/profile.webp"
+                width="96"
+                height="96"
+                fetchpriority="high"
                 alt="Abhishek Mamdapure"
                 className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
                 onError={() => setImgFailed(true)}
@@ -245,20 +197,26 @@ const HeroCard = memo(function HeroCard({ delay }) {
           <h1 className="font-display text-2xl xl:text-[28px] font-bold text-white leading-tight tracking-wide mb-1 opacity-90 group-hover:opacity-100 transition-opacity">
             Abhishek Mamdapure
           </h1>
-          <p className="text-gray-400 text-sm xl:text-[15px] font-body flex gap-1.5 items-center bg-black/20 w-fit px-2 py-0.5 rounded-md border border-white/5">
-            <span>I'm a</span>
-            <span className="text-accent font-semibold tracking-wide">
-              <Typewriter words={["Data Scientist", "Developer", "Problem Solver", "AI Engineer"]} />
-            </span>
+          <p className="text-accent text-sm xl:text-[15px] font-semibold tracking-wide">
+            Generative AI Engineer
           </p>
         </div>
       </div>
 
       {/* Short Bio */}
       <div className="relative z-10 mb-5">
-        <p className="text-gray-400 text-sm xl:text-[14.5px] leading-relaxed font-body">
-          Passionate about crafting intelligent systems and solving complex problems with Artificial Intelligence. Experienced in building scalable ML architectures, Generative AI models, and modern data-driven solutions.
+        <p className="text-gray-300 text-sm xl:text-[14.5px] leading-relaxed font-body">
+          I build production AI systems: LLM applications, RAG, document intelligence, AI agents and applied ML. 6+ years across Amazon, Citi, Pienomial, Affine and HYPD.
         </p>
+        <p className="text-[11px] text-muted mt-2">Python · LangChain · FastAPI · PyTorch · AWS · MongoDB</p>
+        <div className="flex flex-wrap gap-2 mt-4">
+          <a href="/projects" className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-accent text-white text-xs font-semibold hover:bg-accent/90 transition-colors">
+            View projects <ArrowRight size={13} aria-hidden="true" />
+          </a>
+          <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-border bg-[#161616] text-xs text-gray-200 hover:border-accent hover:text-white transition-colors">
+            <Github size={13} aria-hidden="true" /> GitHub
+          </a>
+        </div>
       </div>
 
       {/* Divider */}
@@ -296,7 +254,7 @@ const TechArsenal = memo(function TechArsenal({ delay }) {
       <SectionLabel icon={Layers} text="My Stack" />
       <h2 className="font-display text-base font-bold text-white mb-3 tracking-wide text-center">Tech Arsenal</h2>
       <div
-        className="flex-1 overflow-hidden relative"
+        className="marquee-viewport flex-1 overflow-hidden relative"
         style={{
           maskImage: "linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)",
           WebkitMaskImage: "linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)"
@@ -304,8 +262,8 @@ const TechArsenal = memo(function TechArsenal({ delay }) {
       >
         <div className="grid grid-cols-2 gap-1.5 animate-marquee-vertical hover:[animation-play-state:paused] h-max pb-1.5">
           {[...SKILLS, ...SKILLS].map((s, i) => (
-            <div key={`${s.name}-${i}`} className="skill-chip flex-shrink-0">
-              <span className="text-sm leading-none">{s.icon}</span>
+            <div key={`${s.name}-${i}`} className="skill-chip flex-shrink-0" aria-hidden={i >= SKILLS.length || undefined}>
+              <span className="text-sm leading-none" aria-hidden="true">{s.icon}</span>
               <span className="text-xs">{s.name}</span>
             </div>
           ))}
@@ -315,34 +273,54 @@ const TechArsenal = memo(function TechArsenal({ delay }) {
   );
 });
 
-// ─── WORKS GALLERY ────────────────────────────────────────────────────────
+// ─── SELECTED WORK ────────────────────────────────────────────────────────
 
-// FIX 4 – projects list scrolls inside the card
+function WorkItems() {
+  return (
+    <div className="flex flex-col gap-3">
+      {PROJECTS.filter((p) => p.featured).map((p) => (
+        <article key={p.slug} className="rounded-xl border border-border bg-[#161616] p-3 hover:border-accent/60 transition-colors">
+          <h3 className="font-display text-sm font-bold text-white">
+            <a href={`/projects/${p.slug}`} className="hover:text-accent">{p.title}</a>
+          </h3>
+          <p className="text-[11px] text-gray-400 leading-snug mt-1 mb-2">{p.summary}</p>
+          <ProjectLinks project={p} compact />
+        </article>
+      ))}
+      <p className="text-[10px] uppercase tracking-widest text-muted mt-1">Professional work</p>
+      {WORK_HIGHLIGHTS.map((w) => (
+        <figure key={w.title} className="rounded-xl border border-border overflow-hidden flex-shrink-0 bg-black/40">
+          <img src={w.image} alt="" width="640" height="360" loading="lazy" className="w-full h-24 object-cover opacity-80" />
+          <figcaption className="px-3 py-2 text-[11px] text-gray-300">{w.title} <span className="text-muted">· {w.org}</span></figcaption>
+        </figure>
+      ))}
+    </div>
+  );
+}
+
 const WorksGallery = memo(function WorksGallery({ delay }) {
   const ref = useFadeIn(delay);
   return (
-    <div ref={ref} className="card p-5 xl:p-4 flex flex-col h-[320px] xl:h-auto xl:flex-1 xl:min-h-0">
+    <section ref={ref} aria-labelledby="work-heading" className="card p-5 xl:p-4 flex flex-col h-[420px] xl:h-auto xl:flex-[1.4] xl:min-h-0">
       <SectionLabel icon={Code2} text="Projects" />
-      <h2 className="font-display text-base font-bold text-white mb-3 tracking-wide text-center">Works Gallery</h2>
+      <h2 id="work-heading" className="font-display text-base font-bold text-white mb-3 tracking-wide text-center">Selected Work</h2>
       <div
-        className="flex-1 overflow-hidden relative"
+        className="marquee-viewport flex-1 min-h-0 overflow-hidden relative"
         style={{
-          maskImage: "linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)",
-          WebkitMaskImage: "linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)"
+          maskImage: "linear-gradient(to bottom, transparent, black 8%, black 92%, transparent)",
+          WebkitMaskImage: "linear-gradient(to bottom, transparent, black 8%, black 92%, transparent)"
         }}
       >
-        <div className="flex flex-col gap-4 animate-marquee-vertical hover:[animation-play-state:paused] h-max pb-4">
-          {[...PROJECTS, ...PROJECTS].map((p, i) => (
-            <div
-              key={`project-${i}`}
-              className="relative rounded-xl border border-border h-28 flex items-center justify-center overflow-hidden group cursor-pointer hover:scale-[1.015] transition-transform duration-200 flex-shrink-0 w-full bg-black/40"
-            >
-              <img src={p.image} alt={`Project ${i}`} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
-            </div>
-          ))}
+        {/* Two identical copies scroll by -50% for a seamless loop; the copy is hidden from AT and focus */}
+        <div className="flex flex-col gap-3 pb-3 h-max animate-[marqueeVertical_40s_linear_infinite] hover:[animation-play-state:paused] focus-within:[animation-play-state:paused]">
+          <WorkItems />
+          <div aria-hidden="true" inert="">
+            <WorkItems />
+          </div>
         </div>
       </div>
-    </div>
+      <a href="/projects" className="text-xs text-accent hover:underline text-center pt-3">All projects →</a>
+    </section>
   );
 });
 
@@ -359,7 +337,7 @@ const ExperienceBar = memo(function ExperienceBar({ delay }) {
       <SectionLabel icon={Zap} text="Experience" />
       <h2 className="font-display text-[15px] font-bold text-white mb-5 tracking-wide text-center">Companies I've Worked At</h2>
 
-      <div className="overflow-hidden relative pb-1">
+      <div className="marquee-viewport overflow-hidden relative pb-1">
         {/* Gradients for smooth scroll effect */}
         <div className="absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-[#111111] to-transparent z-10" />
         <div className="absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-[#111111] to-transparent z-10" />
@@ -368,6 +346,7 @@ const ExperienceBar = memo(function ExperienceBar({ delay }) {
           {[...COMPANIES, ...COMPANIES].map((company, i) => (
             <div
               key={i}
+              aria-hidden={i >= COMPANIES.length || undefined}
               className="flex-shrink-0 flex items-center justify-center opacity-50 hover:opacity-100 grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110"
             >
               <img src={company.image} alt={company.name} className="h-10 sm:h-12 w-auto object-contain filter drop-shadow-md" />
@@ -385,6 +364,25 @@ const ExperienceBar = memo(function ExperienceBar({ delay }) {
 const Testimonials = memo(function Testimonials({ delay }) {
   const ref = useFadeIn(delay);
   const [selected, setSelected] = useState(null);
+  const triggerRef = useRef(null);
+  const closeRef = useRef(null);
+
+  useEffect(() => {
+    if (!selected) return;
+    const trigger = triggerRef.current;
+    closeRef.current?.focus();
+    const onKey = (e) => e.key === "Escape" && setSelected(null);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      trigger?.focus();
+    };
+  }, [selected]);
+
+  const open = (t, e) => {
+    triggerRef.current = e.currentTarget;
+    setSelected(t);
+  };
 
   return (
     <>
@@ -392,18 +390,22 @@ const Testimonials = memo(function Testimonials({ delay }) {
         <SectionLabel icon={VenetianMask} text="Testimonials" />
         <h2 className="font-display text-sm font-bold text-white mb-3 tracking-wide text-center">From People I've Worked With</h2>
         <div
-          className="flex-1 overflow-hidden relative"
+          className="marquee-viewport flex-1 overflow-hidden relative"
           style={{
             maskImage: "linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)",
             WebkitMaskImage: "linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)"
           }}
         >
-          <div className="flex flex-col gap-2 animate-[marqueeVertical_55s_linear_infinite] hover:[animation-play-state:paused] h-max pb-2">
+          <div className="flex flex-col gap-2 animate-[marqueeVertical_55s_linear_infinite] focus-within:[animation-play-state:paused] hover:[animation-play-state:paused] h-max pb-2">
             {[...TESTIMONIALS, ...TESTIMONIALS].map((t, i) => (
-              <div
+              <button
+                type="button"
                 key={i}
-                onClick={() => setSelected(t)}
-                className="bg-[#161616] rounded-xl border border-border p-3 flex-shrink-0 cursor-pointer hover:border-accent hover:bg-[#1a1a1a] transition-all duration-300"
+                onClick={(e) => open(t, e)}
+                aria-hidden={i >= TESTIMONIALS.length || undefined}
+                tabIndex={i >= TESTIMONIALS.length ? -1 : undefined}
+                aria-label={`Read testimonial from ${t.name}`}
+                className="text-left bg-[#161616] rounded-xl border border-border p-3 flex-shrink-0 cursor-pointer hover:border-accent hover:bg-[#1a1a1a] transition-all duration-300"
               >
                 {t.name && (
                   <div className="flex items-start justify-between mb-1.5">
@@ -415,7 +417,7 @@ const Testimonials = memo(function Testimonials({ delay }) {
                   </div>
                 )}
                 <p className="text-[10px] text-gray-400 leading-normal font-body line-clamp-4">{t.text}</p>
-              </div>
+              </button>
             ))}
           </div>
         </div>
@@ -427,6 +429,9 @@ const Testimonials = memo(function Testimonials({ delay }) {
           onClick={() => setSelected(null)}
         >
           <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="testimonial-title"
             className="bg-[#111111] border border-accent/30 rounded-2xl p-6 md:p-8 max-w-md w-full shadow-2xl animate-spring-up cursor-default relative overflow-hidden group"
             onClick={(e) => e.stopPropagation()}
           >
@@ -434,14 +439,16 @@ const Testimonials = memo(function Testimonials({ delay }) {
             <div className="absolute -top-20 -right-20 w-48 h-48 bg-accent opacity-10 rounded-full blur-[60px] pointer-events-none group-hover:opacity-20 transition-opacity duration-700" />
             <div className="flex justify-between items-start mb-4">
               <div>
-                <p className="text-base font-semibold text-white font-display tracking-wide">{selected.name}</p>
+                <p id="testimonial-title" className="text-base font-semibold text-white font-display tracking-wide">{selected.name}</p>
                 <p className="text-sm text-muted leading-tight mt-1">{selected.designation || selected.location}</p>
               </div>
               <button
+                ref={closeRef}
                 onClick={() => setSelected(null)}
+                aria-label="Close testimonial"
                 className="text-gray-400 hover:text-white bg-[#1a1a1a] hover:bg-[#252525] p-2 rounded-full border border-border transition-colors duration-200"
               >
-                <X size={16} />
+                <X size={16} aria-hidden="true" />
               </button>
             </div>
             <p className="text-sm text-gray-300 leading-relaxed font-body">{selected.text}</p>
@@ -484,10 +491,10 @@ const OnlinePresence = memo(function OnlinePresence({ delay }) {
       <SectionLabel icon={Sun} text="Follow Me" />
       <h2 className="font-display text-sm font-bold text-white mb-3 tracking-wide text-center">Online Presence</h2>
       <div className="flex flex-col gap-1.5">
-        {SOCIALS.map(({ icon: Icon, handle, url }) => (
-          <a key={handle} href={url} target="_blank" rel="noopener noreferrer" className="social-link group">
+        {SOCIALS.map(({ icon: Icon, handle, url, label }) => (
+          <a key={handle} href={url} target="_blank" rel="noopener noreferrer" className="social-link group" aria-label={`${label}: ${handle} (opens in new tab)`}>
             <div className="w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0 group-hover:bg-accent/20 transition-colors">
-              <Icon size={14} className="text-gray-400 group-hover:text-white transition-colors" />
+              <Icon size={14} className="text-gray-400 group-hover:text-white transition-colors" aria-hidden="true" />
             </div>
             <span className="text-sm font-medium">{handle}</span>
             <ExternalLink size={10} className="ml-auto text-muted opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -515,9 +522,11 @@ const GetInTouch = memo(function GetInTouch({ delay }) {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  // Initial class is set pre-paint in index.html from localStorage or the system preference.
   const toggleTheme = () => {
-    document.documentElement.classList.toggle("light-mode");
-    setIsLightMode(!isLightMode);
+    const light = document.documentElement.classList.toggle("light-mode");
+    try { localStorage.setItem("theme", light ? "light" : "dark"); } catch {}
+    setIsLightMode(light);
   };
 
   return (
@@ -525,9 +534,9 @@ const GetInTouch = memo(function GetInTouch({ delay }) {
       <button
         onClick={toggleTheme}
         className="absolute top-3 right-3 w-7 h-7 flex items-center justify-center rounded-full bg-[#161616] border border-border text-gray-400 hover:text-white hover:border-accent transition-all duration-200 z-20"
-        title="Toggle Theme"
+        aria-label={isLightMode ? "Switch to dark theme" : "Switch to light theme"}
       >
-        {isLightMode ? <Moon size={12} /> : <Sun size={12} />}
+        {isLightMode ? <Moon size={12} aria-hidden="true" /> : <Sun size={12} aria-hidden="true" />}
       </button>
       <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-purple-900/20 pointer-events-none" />
       <div className="w-12 h-12 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center mb-3 z-10">
@@ -538,6 +547,7 @@ const GetInTouch = memo(function GetInTouch({ delay }) {
       <div className="flex flex-col gap-2 w-full z-10">
         <button
           onClick={handleCopy}
+          aria-label="Copy email address mamdapureabhishek@gmail.com"
           className="group flex items-center justify-center gap-2 px-3 py-2.5 bg-[#161616] border border-border rounded-xl text-xs text-gray-300 hover:border-accent hover:text-white transition-all duration-200"
         >
           {copied ? <Check size={14} className="text-emerald-400" /> : <Mail size={14} className="text-accent" />}
@@ -573,10 +583,10 @@ export default function App() {
       <main className="relative z-10 flex-1 p-3 md:p-5 mx-auto w-full max-w-7xl xl:max-w-[1700px] xl:min-h-0 overflow-y-auto inner-scroll xl:overflow-visible flex flex-col">
         <div className="flex flex-col lg:grid gap-3 md:gap-4 xl:gap-4 flex-1 xl:h-full lg:grid-cols-2 xl:grid-cols-[300px_minmax(0,1fr)_300px_250px]">
 
-          {/* ── COL 1: Stack + Projects ── */}
+          {/* ── COL 1: Projects + Stack ── */}
           <div className="order-2 lg:order-1 flex flex-col gap-3 md:gap-4 xl:gap-4 xl:min-h-0">
-            <TechArsenal delay={0} />
-            <WorksGallery delay={120} />
+            <WorksGallery delay={0} />
+            <TechArsenal delay={120} />
           </div>
 
           {/* ── COL 2: Stats + Hero + Experience ── */}
